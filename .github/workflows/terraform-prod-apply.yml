@@ -28,21 +28,21 @@ jobs:
           terraform version
           aws sts get-caller-identity
 
-      - name: Terraform Init
+      - name: Terraform init
         run: terraform init -input=false -reconfigure -backend-config="${BACKEND_CONFIG}"
 
-      - name: Terraform Format Check
+      - name: Terraform fmt check
         run: terraform fmt -check -recursive
 
-      - name: Terraform Validate
+      - name: Terraform validate
         run: terraform validate
 
-      - name: Terraform Plan Production
+      - name: Terraform plan production
         run: terraform plan -input=false -var-file="${TFVARS_FILE}" -out=tfplan
 
-      - name: Show Production Plan
+      - name: Show production plan
         run: terraform show -no-color tfplan
 
-      - name: Terraform Apply Approved Plan
+      - name: Terraform apply approved plan
         run: terraform apply -input=false -auto-approve tfplan
 
